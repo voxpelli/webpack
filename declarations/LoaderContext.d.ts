@@ -5,6 +5,7 @@ import type { ResolveOptionsWithDependencyType } from "../lib/ResolverFactory";
 import type Compilation from "../lib/Compilation";
 import type Compiler from "../lib/Compiler";
 import type NormalModule from "../lib/NormalModule";
+import type Hash from "../lib/util/Hash";
 import type { InputFileSystem } from "../lib/util/fs";
 import type { Logger } from "../lib/logging/Logger";
 import type {
@@ -39,6 +40,7 @@ export interface NormalModuleLoaderContext<OptionsType> {
 	utils: {
 		absolutify: (context: string, request: string) => string;
 		contextify: (context: string, request: string) => string;
+		createHash: (algorithm?: string) => Hash;
 	};
 	rootContext: string;
 	fs: InputFileSystem;
@@ -185,6 +187,7 @@ export interface LoaderRunnerLoaderContext<OptionsType> {
 		data: object | undefined;
 		pitchExecuted: boolean;
 		normalExecuted: boolean;
+		type?: "commonjs" | "module" | undefined;
 	}[];
 
 	/**
@@ -210,6 +213,12 @@ export interface LoaderRunnerLoaderContext<OptionsType> {
 	 * Example: "/abc/resource.js?query#frag"
 	 */
 	resource: string;
+
+	/**
+	 * Target of compilation.
+	 * Example: "web"
+	 */
+	target: string;
 }
 
 type AdditionalData = {

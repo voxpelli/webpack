@@ -204,7 +204,7 @@ declare module "@webassemblyjs/ast" {
 		raw?: string
 	): FloatLiteral;
 	export function global(globalType: string, nodes: Node[]): Global;
-	export function identifier(indentifier: string): Identifier;
+	export function identifier(identifier: string): Identifier;
 	export function funcParam(valType: string, id: Identifier): FuncParam;
 	export function instruction(inst: string, args?: Node[]): Instruction;
 	export function callInstruction(funcIndex: Index): CallInstruction;
@@ -246,10 +246,20 @@ declare module "@webassemblyjs/ast" {
 declare module "webpack-sources" {
 	export type MapOptions = { columns?: boolean; module?: boolean };
 
+	export type RawSourceMap = {
+		version: number;
+		sources: string[];
+		names: string[];
+		sourceRoot?: string;
+		sourcesContent?: string[];
+		mappings: string;
+		file: string;
+	};
+
 	export abstract class Source {
 		size(): number;
 
-		map(options?: MapOptions): Object;
+		map(options?: MapOptions): RawSourceMap | null;
 
 		sourceAndMap(options?: MapOptions): {
 			source: string | Buffer;

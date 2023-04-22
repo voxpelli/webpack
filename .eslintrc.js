@@ -56,7 +56,7 @@ module.exports = {
 				...["implements", "const", "memberof", "readonly", "yields"].reduce(
 					(acc, tag) => {
 						acc[tag] = {
-							message: `@${tag} currently not supported in Typescript`
+							message: `@${tag} currently not supported in TypeScript`
 						};
 						return acc;
 					},
@@ -88,6 +88,13 @@ module.exports = {
 			},
 			parserOptions: {
 				ecmaVersion: 5
+			}
+		},
+		{
+			files: ["tooling/**/*.js"],
+			env: { es6: true },
+			parserOptions: {
+				ecmaVersion: 2020
 			}
 		},
 		{
